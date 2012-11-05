@@ -104,11 +104,51 @@ void second()
 	} 
 }
 
-void third()
+void third(int interval, int runtime)
 {
 	// third: amount of mem configured + currently available
 	// list of load averages (read pdf for more about this)
-	
+
+	//calculate number of samples to perform for load average
+	int samples;
+	samples = runtime/interval;
+
+	//print the memory information on this computer
+	file = fopen("/proc/meminfo", "r");
+	if (file)
+	{
+		while(fgets(str,1024,file))
+		{
+			//print out total amount of memory
+			if (strstr(str,"MemTotal"))
+			{
+				strtok (str," ");
+				line = strtok(NULL," ");
+				printf("Total memory is %s kB \n",line);
+			}
+
+			//print out amount of free memory
+			else if (strstr(str,"MemFree"))
+			{
+				strtok (str," ");
+				line = strtok(NULL," ");
+				printf("Amount of free memory is %s kB \n",line);
+			}
+		}
+		fclose(file);
+	}
+	printf ("The follow will show a list of load averages with time interval %d over a runtime of %d \n",interval,runtime);
+
+	//get the load avg according to the time interval and total runtime
+	int i=0;
+	for (i=0;i<samples;i++)
+	{
+		file = fopen("/proc/loadavg","r");
+		fgets(str,1024,file);
+		strtok(str," ");
+		printf("%s \n",str);
+		sleep(interval);
+	}
 }
 
 int main(int argc, char *argv[]) {
@@ -142,7 +182,8 @@ int main(int argc, char *argv[]) {
 	else if (argc == 4)
 	{
 		// version 3, need two more commands to specify load average and time interval
-		printf("Third version not implemented yet\n");
+		printf("This is the third version \n");
+		third(atoi(argv[2]),atoi(argv[3]));
 	}
 	else printf("Invalid number of args! Type 1 for version 1, 2 for version 2, 3 for version 3. Exiting...");
 	
