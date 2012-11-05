@@ -63,17 +63,48 @@ void second()
 	// second: time in user mode, system mode, idle
 	// # of disk read/write requests, # of context switches kernel did
 	// time when system last booted, # processes created since boot
-	
-	// Print out time in user mode, system mode, idling
-	//file = fopen("/proc/stat", "r");
-	
-	// Print out # of disk read/write requests
-	
-	// Print out # of context switches done by kernel
-	
-	// Print out time when system last booted
-	
-	// Print out # processes created since boot
+	file = fopen("/proc/stat", "r");
+	if(file){
+	//first line contains all the information we need
+		fgets(str,1024,file);
+		strtok(str, " ");
+		line = strtok(NULL, " ");
+		printf("Processor Time spend in user mode: \t\t%s\n",line);
+		strtok(NULL, " ");
+		line = strtok(NULL, " ");
+		printf("Processor Time spend in system: \t\t%s\n",line);
+		line = strtok(NULL, " ");
+		printf("Amount of time system was idle: \t\t%s\n",line);
+		line = strtok(NULL, " ");
+		printf("Number of I/O request: \t\t\t\t%s\n",line);
+		fclose(file);
+		}	
+
+	//Number of context switch, 
+	//time at which the system was last booted
+	//the number of process that have been created since the system was booted
+
+	file = fopen("/proc/stat", "r");
+	if(file){
+		while(fgets(str,1024,file)){
+			if(strstr(str,"ctxt")){
+				strtok(str, " ");
+				line = strtok(NULL, " ");
+				printf("Number of cotext switch is :\t\t\t\%s",line);
+			}
+			else if(strstr(str,"btime")){
+				strtok(str, " ");
+				line = strtok(NULL, " ");
+				printf("Last booted time :\t\t\t\t\%s",line);
+			}
+			else if(strstr(str,"processes")){
+				strtok(str, " ");
+				line = strtok(NULL, " ");
+		printf("Number of processes created since boot :\t\%s\n",line);
+			}	
+		}
+	fclose(file);
+	} 
 }
 
 void third()
@@ -93,11 +124,14 @@ int main(int argc, char *argv[]) {
 	{
 		if (*argv[1] == '1')
 		{
+			printf("This is the first version: \n");
 			first();
 		}
 		else if (*argv[1] == '2')
 		{
-			printf("Second version not implemented yet\n");
+			printf("This is the second version: \n");
+			first();
+			second();
 		}
 		else if (*argv[1] == '3')
 		{
