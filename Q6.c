@@ -66,10 +66,10 @@ void second()
 		fgets(str,1024,file);
 		strtok(str, " ");
 		line = strtok(NULL, " ");
-		printf("Processor Time spend in user mode: %s\n",line);
+		printf("Processor Time spent in user mode: %s\n",line);
 		strtok(NULL, " ");
 		line = strtok(NULL, " ");
-		printf("Processor Time spend in system: %s\n",line);
+		printf("Processor Time spent in system: %s\n",line);
 		line = strtok(NULL, " ");
 		printf("Amount of time system was idle: %s\n",line);
 		line = strtok(NULL, " ");
@@ -87,17 +87,17 @@ void second()
 			if(strstr(str,"ctxt")){
 				strtok(str, " ");
 				line = strtok(NULL, " ");
-				printf("Number of context switch is: %s\n",line);
+				printf("Number of context switches are: %s",line);
 			}
 			else if(strstr(str,"btime")){
 				strtok(str, " ");
 				line = strtok(NULL, " ");
-				printf("Last booted time: %s\n",line);
+				printf("Last booted time: %s",line);
 			}
 			else if(strstr(str,"processes")){
 				strtok(str, " ");
 				line = strtok(NULL, " ");
-		printf("Number of processes created since boot: %s\n",line);
+		printf("Number of processes created since boot: %s",line);
 			}	
 		}
 	fclose(file);
