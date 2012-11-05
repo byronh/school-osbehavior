@@ -3,9 +3,6 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 FILE * file;
 char * line;
@@ -53,7 +50,7 @@ void first()
 		fgets(str, sizeof(str), file);
 		line = strtok(str, " ");
 		
-		printf("Time since system boot (in seconds): %s\n", line);
+		printf("Time since last system boot: %s seconds\n", line);
 		fclose(file);
 	}
 }
@@ -69,14 +66,14 @@ void second()
 		fgets(str,1024,file);
 		strtok(str, " ");
 		line = strtok(NULL, " ");
-		printf("Processor Time spend in user mode: \t\t%s\n",line);
+		printf("Processor Time spend in user mode: %s\n",line);
 		strtok(NULL, " ");
 		line = strtok(NULL, " ");
-		printf("Processor Time spend in system: \t\t%s\n",line);
+		printf("Processor Time spend in system: %s\n",line);
 		line = strtok(NULL, " ");
-		printf("Amount of time system was idle: \t\t%s\n",line);
+		printf("Amount of time system was idle: %s\n",line);
 		line = strtok(NULL, " ");
-		printf("Number of I/O request: \t\t\t\t%s\n",line);
+		printf("Number of I/O request: %s\n",line);
 		fclose(file);
 		}	
 
@@ -90,17 +87,17 @@ void second()
 			if(strstr(str,"ctxt")){
 				strtok(str, " ");
 				line = strtok(NULL, " ");
-				printf("Number of cotext switch is :\t\t\t\%s",line);
+				printf("Number of context switch is: %s\n",line);
 			}
 			else if(strstr(str,"btime")){
 				strtok(str, " ");
 				line = strtok(NULL, " ");
-				printf("Last booted time :\t\t\t\t\%s",line);
+				printf("Last booted time: %s\n",line);
 			}
 			else if(strstr(str,"processes")){
 				strtok(str, " ");
 				line = strtok(NULL, " ");
-		printf("Number of processes created since boot :\t\%s\n",line);
+		printf("Number of processes created since boot: %s\n",line);
 			}	
 		}
 	fclose(file);
