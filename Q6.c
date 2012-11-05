@@ -182,7 +182,8 @@ int main(int argc, char *argv[]) {
 	else if (argc == 4)
 	{
 		// version 3, need two more commands to specify load average and time interval
-		printf("This is the third version \n");
+		first();
+		second();
 		third(atoi(argv[2]),atoi(argv[3]));
 	}
 	else printf("Invalid number of args! Type 1 for version 1, 2 for version 2, 3 for version 3. Exiting...");
